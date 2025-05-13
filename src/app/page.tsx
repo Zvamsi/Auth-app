@@ -8,7 +8,15 @@ import Image from "next/image";
 import { Suspense } from "react";
 
 export default function Home() {
-  const [user, setUser] = useState<any>(null);
+  interface User {
+    uid: string;
+    displayName: string | null;
+    email: string | null;
+    photoURL: string | null;
+  }
+
+  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -47,7 +55,7 @@ export default function Home() {
             <Typography variant="h5">Welcome, {user.displayName}</Typography>
             <Typography variant="h6">Email: {user.email}</Typography>
             <Image
-              src={user.photoURL}
+              src={user.photoURL || "default-avatar.png"}
               alt="Profile"
               width={60}
               height={60}
